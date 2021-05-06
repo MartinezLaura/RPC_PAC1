@@ -2,13 +2,13 @@ import numpy as np
 import pandas as pd
 
 class Mapa:
-        """Clase mapa  donde se almacenan las caracteristicas basicas del mapa
-        an/alt: ancho y alto del mapa
-        pared: es una lista de tuplas con las posiciones donde se ubica pared
-        mapa: descripcion del mapa 
-        mercas: un diccionario donde key en la mercancia y value una lista de tuplas con posicion inicial y objectivo
-        robot: tupla con la posicion del robot
-        """
+    """Clase mapa  donde se almacenan las caracteristicas basicas del mapa
+    an/alt: ancho y alto del mapa
+    pared: es una lista de tuplas con las posiciones donde se ubica pared
+    mapa: descripcion del mapa 
+    mercas: un diccionario donde key en la mercancia y value una lista de tuplas con posicion inicial y objectivo
+    robot: tupla con la posicion del robot
+    """
     def __init__(self, mapa = np.matrix([['M1', '#', 1, 'M3'], [1, '#', 1, 1], ['M2', 1, 'R', 1], [1, 1, 1, 1]])):
         self.an = 4
         self.alt = 4
