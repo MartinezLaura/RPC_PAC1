@@ -94,9 +94,16 @@ class Aestrella:
     merc: str Mercancia que se quiere cargar/descargar
     l_ab: Lista de Nodos a explorar
     l_cer: Lista de Nodos cerrados
-    cost: int. coste de las acciones
+    cargado: Bool. Indica si el robot va cargado o no
     """
     class Nodo:
+        """ Clase para almacenar la informacion de las posiciones visitadas
+        pos: tupla con la posicion actual
+        ances: tupla con la posicion anterior (padre)
+        g: int coste de este nodo
+        h: int calculo heuristico de este nodo
+        f: int g+h
+        """
         def __init__(self, pos=tuple, ances=tuple):
             self.pos = pos
             self.ances = ances
@@ -104,14 +111,9 @@ class Aestrella:
             self.h = 0
             self.f = 0
 
-        def __eq__(self, aux):
-            if not isinstance(aux, Aestrella.Nodo):
-                return NotImplemented
-            return self.pos == aux.pos and self.ances == aux.ances \
-                   and self.g == aux.g and self.h == aux.h and self.f == aux.f
-
         def __str__(self):
-            return "pos: {}, ances: {}, {}{}{}".format(self.pos, self. ances, self.g,\
+            """Metodo implementado para retornar de manera legible los Nodos"""
+            return "pos: {}, ances: {}, g:{}, h:{}, f{}".format(self.pos, self. ances, self.g,\
                                                        self.h, self.f)
 
     def __init__(self, ini: tuple = tuple, fin: tuple = tuple, merc: str = str, cargado: bool = bool):
