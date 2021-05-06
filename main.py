@@ -64,10 +64,10 @@ class Mapa:
             dest = a.Nodo(self.robot, None)
             d2 = a.manhatan(dest)
             c = d1 + d2
-            h.loc[i, 'm'] = merca
-            h.loc[i, 'd'] = c
-            h.loc[i, 'pi'] = self.robot
-            h.loc[i, 'pf'] = self.mercas[merca][1]
+            h.loc[i, 'Mercancia'] = merca
+            h.loc[i, 'heuristica'] = c
+            h.loc[i, 'Posicion inicial'] = self.robot
+            h.loc[i, 'Posicion fin'] = self.mercas[merca][1]
             i += 1
         h = h.sort_values(by=['d'])
         return h
