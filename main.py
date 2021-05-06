@@ -54,7 +54,7 @@ class Mapa:
         input: Dataframe para guardar los datos
         retorna: dataaframe actualizado"""
         i = 0
-        h = pd.DataFrame(index=np.arange(1), columns=['m', 'd', 'pi', 'pf'])
+        h = pd.DataFrame(index=np.arange(1), columns=['Mercancia', 'heuristica', 'Posicion inicial', 'Posicion fin'])
         iter = self.mercas.keys() - set(hechas)
         for merca in iter:
             a = Aestrella(self.robot, self.mercas[merca][0], merca)
