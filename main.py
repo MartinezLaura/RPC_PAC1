@@ -252,7 +252,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='A* algoritmo')
     parser.add_argument('--printListas', type=int, required= True, \
-                        help='Boolpara indicar si quieres imprimir las listas abiertas y cerradas')
+                        help='Bool para indicar si quieres imprimir las listas abiertas y cerradas')
     parser.add_argument('--restartRobot', type=int, required= False, default=0, \
                         help='Si quieres reiniciar la posicion del robot a (2,2) para la siguiente \
                         mercancia o continuar desde la posicion anterior')
@@ -287,7 +287,7 @@ if __name__ == "__main__":
         # Se captura la ultima posicion del robot y se reace el algoritmo per hacia el destino de la mercancia
         m.robot = result[0][0].pos
         a = Aestrella(m.robot, m.mercas[sel['Mercancia']][1], sel['Mercancia'], cargado = True)
-        result = a.aestrella(m)
+        result = a.aestrella(m, plistas)
         
         #Comprobacion de si la siguiente mercancia se va a buscar desde la ultima posicion o desde la inicial del robot
         if restart_robot == 1:
