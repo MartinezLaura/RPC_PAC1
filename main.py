@@ -256,7 +256,6 @@ if __name__ == "__main__":
                         help='Si quieres reiniciar la posicion del robot a (2,2) para la siguiente \
                         mercancia o continuar desde la posicion anterior')
     args = parser.parse_args()
-    workspace=args.workspace, schema=args.schema, dem=args.dem)
     
     #Flag creada pos is se quiere reiniciar la posicion del robot (2,2) despues de dejar la mercancia
     restart_robot = arg.restartRobot
