@@ -19,9 +19,17 @@ class Mapa:
         assert (mapa.shape == (self.alt, self.an))
 
     def loc_pared(self):
+        """Localiza las paredes dada una matriz
+        pared tiene que ser codificada como '#'
+        retorna una lista de tuplas con las posiciones
+        """
         return np.where(self.mapa == '#')
 
     def loc_robot(self):
+        """Localiza el robot dada una matriz
+        robot tiene que ser codificada como 'R'
+        retorna una tupla con las posiciones
+        """
         aux = np.where(self.mapa == 'R')
         return (aux[0][0],aux[1][0])
     
@@ -44,13 +52,26 @@ class Mapa:
             return (aux1 == True) or (len(aux2)!=0)
 
     def es_merc(self, pos, merc):
+        """COmprueva si la posicion es la mercancia que queremos cargar/descargar
+        pos: tupla con la posicion de robot
+        merc: mercancia objetivo
+        retorna Bool indicando si es o no la mercancia
+        """
         act_merc_pos = self.mercas[merc][0]
         return pos == act_merc_pos
 
-    def cambiar_obj(self, val, merc):
+    def cambiar_obj(self, merc):
+        """Una vez descargada la mercancia opbetivo de recodifica la primera posicion de los 
+        valosres del diccinario que contiene las posiciones de las mercancias
+        De esta manera podremos controlar mejor los obsaculos en las siguientes iteraciones
+        mer: str mercacia objetivo 
+        """
         self.mercas[merc][0] = self.mercas[merc][1]
 
     def contiguo(self, pos):
+        """Dado un nodo se devuelven los vecinos
+        pos: Nodo al que abrir vecinos
+        retorna lista de tuplas con las posiciones de nodos vecinos"""
         (x, y) = pos.pos
         return [(x, y + 1), (x, y - 1), (x + 1, y), (x - 1, y)]
     
@@ -126,34 +147,54 @@ class Aestrella:
         self.cargado = cargado
 
     def manhatan(self, nodox):
+        """Distancia de manhattan entre dos Nodos
+        nodox: Nodo en el que calcular la distancia
+        retorna int distancia
+        """
         return np.absolute(nodox.pos[0] - self.fin[0]) + np.absolute(nodox.pos[1] - self.fin[1])
 
     def coste(self, actual):
+        """CUmulativo del calculo del coste
+        Se ha hecho de este modo dado que el coste es constante
+        actual: int coste acumulado hasta el momento
+        retorna: int coste mas uno
+        """
         return actual + 1
 
     def tratar_nodo(self, mapa, n_actual):
+        """Se hace la exploracion a los nodos vecinos teniendo en cuenta obstaculos
+        mapa: clase mapa con todas sus caracteristicas
+        n_actual: Nodo nodo en el que explorar los vecinos
+        """
+        #exploramos vecions
         for pos in mapa.contiguo(n_actual):
+            #comprovamos obstaculos
             if mapa.dentromapa(pos) and not mapa.es_obstac(pos, self.merc, self.cargado):
                 n_nuevo = self.Nodo(pos, n_actual.pos)
-                pos_lab = [i.pos for i in self.l_ab]
-                pos_lcerr = [i.pos for i in self.l_cer]
+                #calculo de las metricas
                 n_nuevo.h = self.manhatan(n_nuevo)
                 n_nuevo.g = self.coste(n_actual.g)
                 n_nuevo.f = n_nuevo.g + n_nuevo.h
+                # recuperanos nodosde la lista abierta y cerrada paracomprovar sie l nodo actual existe en ellas
+                pos_lab = [i.pos for i in self.l_ab]
+                pos_lcerr = [i.pos for i in self.l_cer]
                 if n_nuevo.pos not in pos_lab and n_nuevo.pos not in pos_lcerr:
                     self.l_ab.append(n_nuevo)
                 elif n_nuevo.pos in pos_lab:
+                    #estamos dentro de un caso de retroceso en la ruta
                     if n_nuevo.g < n_actual.g:
                         n_nuevo.ances = n_actual.pos
+        #ordenamos l alista por f
         self.l_ab.sort(key=lambda x: x.f, reverse=True)
 
     def rehacer_camino(self):
         """Dada una lista cerrada y un futuro estado se devuleve la ruta optima
         y el coste final
-        Se hace recoriendo la lista en orden inverso y escogiendo siempre por antecesor"""
+        Se hace recoriendo la lista en orden inverso y escogiendo siempre por antecesor
+        se retorna un alista con el camino y el cote total"""
         camino = []
         camino.append(self.l_cer[-1])
-        #sumamos uno al coste para tener en cuenta el coste de cargar o descrgar mercancia
+        #sumamos uno al coste para tener en cuenta el coste de cargar o descargar mercancia
         coste_t = self.l_cer[-1].f +1
         for nodo in reversed(self.l_cer[:-1]):
             if camino[-1].ances == nodo.pos:
@@ -162,19 +203,26 @@ class Aestrella:
 
 
     def aestrella(self, mapa):
+        """Funcion principal de llmada al a*
+        mapa: tipo Mapa
+        retorna el camino
+        """
         # iniciamos con la lista abierta y los posibles vecinos
         Bool = False
         n_ini = self.Nodo(self.ini, None)
         self.l_ab.append(n_ini)
-
+        
+        #mientras no se cumpla el objetivo o la lista abierta este vacia
         while not Bool:
             if not self.l_ab:
                 raise("La lista abierta esta vacia, no se han encontrado caminos posibles")
             n_actual = self.l_ab.pop()
+            #Comprueva si el la mercancia objetivo
             Bool = mapa.es_merc(n_actual.pos, self.merc)
             self.l_cer.append(n_actual)
             self.tratar_nodo(mapa, n_actual)
-
+        
+        #rehacemos el camino con la lista cerrada
         result = self.rehacer_camino()
 
         #Imprimimos camino como se solicia n la practica
@@ -185,8 +233,11 @@ class Aestrella:
         else:
             print('Descargar en R mercancia: {} fila: {} columna {}'.format(self.merc, n.pos[0], n.pos[1]))
         print('Este recorrido ha tenido un coste de: {}'.format(result[1]))
-
-        mapa.cambiar_obj(n_actual.pos, self.merc)
+        
+        #Recodificar la mercancia en Mapa
+        mapa.cambiar_obj(self.merc)
+        
+        #Impresion de lista abierta y cerrada
         print('Lista cerrada:')
         print([str(n) for n in self.l_cer], end = '\n')
         print('Lista abierta:')
