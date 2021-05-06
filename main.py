@@ -231,7 +231,7 @@ class Aestrella:
         if mapa.mercas[self.merc][0] != mapa.mercas[self.merc][1]:
             print('Cargar en R mercancia: {} fila: {} columna {}'.format(self.merc, n.pos[0], n.pos[1]))
         else:
-            print('Descargar en R mercancia: {} fila: {} columna {}'.format(self.merc, n.pos[0], n.pos[1]))
+            print('Descargar mercancia en: {} fila: {} columna {}'.format(self.merc, n.pos[0], n.pos[1]))
         print('Este recorrido ha tenido un coste de: {}'.format(result[1]))
         
         #Recodificar la mercancia en Mapa
@@ -240,9 +240,9 @@ class Aestrella:
         if plistas == 1:
             #Impresion de lista abierta y cerrada
             print('Lista cerrada:')
-            print([str(n)'\n' for n in self.l_cer])
+            print([str(n)+'\n' for n in self.l_cer])
             print('Lista abierta:')
-            print([str(n)'\n' for n in self.l_ab])
+            print([str(n)+'\n' for n in self.l_ab])
 
         return result
 
