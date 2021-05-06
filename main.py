@@ -202,7 +202,7 @@ class Aestrella:
         return [camino, coste_t]
 
 
-    def aestrella(self, mapa):
+    def aestrella(self, mapa, plistas):
         """Funcion principal de llmada al a*
         mapa: tipo Mapa
         retorna el camino
@@ -237,11 +237,12 @@ class Aestrella:
         #Recodificar la mercancia en Mapa
         mapa.cambiar_obj(self.merc)
         
-        #Impresion de lista abierta y cerrada
-        print('Lista cerrada:')
-        print([str(n) for n in self.l_cer], end = '\n')
-        print('Lista abierta:')
-        print([str(n) for n in self.l_ab], end = '\n')
+        if plistas == 1:
+            #Impresion de lista abierta y cerrada
+            print('Lista cerrada:')
+            print([str(n) for n in self.l_cer], end = '\n')
+            print('Lista abierta:')
+            print([str(n) for n in self.l_ab], end = '\n')
 
         return result
 
@@ -250,9 +251,9 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description='A* algoritmo')
-    parser.add_argument('--printListas', type= Bool, required= True, \
+    parser.add_argument('--printListas', type=int, required= True, \
                         help='Boolpara indicar si quieres imprimir las listas abiertas y cerradas')
-    parser.add_argument('--restartRobot', type= Bool, required= False, default= False, \
+    parser.add_argument('--restartRobot', type=int, required= False, default=0, \
                         help='Si quieres reiniciar la posicion del robot a (2,2) para la siguiente \
                         mercancia o continuar desde la posicion anterior')
     args = parser.parse_args()
@@ -289,7 +290,7 @@ if __name__ == "__main__":
         result = a.aestrella(m)
         
         #Comprobacion de si la siguiente mercancia se va a buscar desde la ultima posicion o desde la inicial del robot
-        if restart_robot:
+        if restart_robot == 1:
             m.robot = m.loc_robot()
         else:
             m.robot = result[0][0].pos
