@@ -113,7 +113,7 @@ class Aestrella:
 
         def __str__(self):
             """Metodo implementado para retornar de manera legible los Nodos"""
-            return "pos: {}, ances: {}, g:{}, h:{}, f{}\n".format(self.pos, self. ances, self.g,\
+            return "pos: {}, ances: {}, g:{}, h:{}, f{}".format(self.pos, self. ances, self.g,\
                                                        self.h, self.f)
 
     def __init__(self, ini: tuple = tuple, fin: tuple = tuple, merc: str = str, cargado: bool = bool):
@@ -188,9 +188,9 @@ class Aestrella:
 
         mapa.cambiar_obj(n_actual.pos, self.merc)
         print('Lista cerrada:')
-        print([str(n) for n in self.l_cer])
+        print([str(n) for n in self.l_cer], end = '\n')
         print('Lista abierta:')
-        print([str(n) for n in self.l_ab])
+        print([str(n) for n in self.l_ab], end = '\n')
 
         return result
 
