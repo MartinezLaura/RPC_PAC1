@@ -247,8 +247,22 @@ class Aestrella:
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description='A* algoritmo')
+    parser.add_argument('--printListas', metavar=Bool', required=True,
+                        help='Boolpara indicar si quieres imprimir las listas abiertas y cerradas')
+    parser.add_argument('--restartRobot', metavar=Bool, required=False, default = False,
+                        help='Si quieres reiniciar la posicion del robot a (2,2) para la siguiente \
+                        mercancia o continuar desde la posicion anterior')
+    args = parser.parse_args()
+    workspace=args.workspace, schema=args.schema, dem=args.dem)
+    
     #Flag creada pos is se quiere reiniciar la posicion del robot (2,2) despues de dejar la mercancia
-    restart_robot = False
+    restart_robot = arg.restartRobot
+    #Imprimir o no las listas abiertas y cerradas
+    plistas = args.printListas
+    
     #generamos el mapa y guardamos las posiciones del robot, pared y mercancias
     m = Mapa()
     m.pared = m.loc_pared()
@@ -269,7 +283,7 @@ if __name__ == "__main__":
         
         #generacion de objeto y ejecucion del a*
         a = Aestrella(m.robot, m.mercas[sel['Mercancia']][0], sel['Mercancia'], cargado = False)
-        result = a.aestrella(m)
+        result = a.aestrella(m, plistas)
         # Se captura la ultima posicion del robot y se reace el algoritmo per hacia el destino de la mercancia
         m.robot = result[0][0].pos
         a = Aestrella(m.robot, m.mercas[sel['Mercancia']][1], sel['Mercancia'], cargado = True)
