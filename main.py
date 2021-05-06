@@ -241,11 +241,10 @@ class Aestrella:
             #Impresion de lista abierta y cerrada
             print('Lista cerrada:')
             for n in self.l_cer:
-                print(str(n) + "\n")
-                
-            print([str(n) + "\n" for n in self.l_cer])
+                print(str(n))
             print('Lista abierta:')
-            print([str(n)+"\n" for n in self.l_ab])
+            for n in self.l_ab:
+                print(str(n))
 
         return result
 
