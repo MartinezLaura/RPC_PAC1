@@ -88,6 +88,14 @@ class Mapa:
 
 
 class Aestrella:
+    """Classe de algoritmo del A* donde se genera el camino optino dado un inicio y fin
+    ini: tupla posicion inicial
+    fin: tupla posicion fin
+    merc: str Mercancia que se quiere cargar/descargar
+    l_ab: Lista de Nodos a explorar
+    l_cer: Lista de Nodos cerrados
+    cost: int. coste de las acciones
+    """
     class Nodo:
         def __init__(self, pos=tuple, ances=tuple):
             self.pos = pos
@@ -113,8 +121,6 @@ class Aestrella:
         self.merc = merc
         self.l_ab = []
         self.l_cer = []
-        self.l_reto = []
-        self.cost = 0
         self.cargado = cargado
 
     def manhatan(self, nodox):
