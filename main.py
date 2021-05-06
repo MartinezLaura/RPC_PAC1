@@ -70,7 +70,7 @@ class Mapa:
             h.loc[i, 'pf'] = self.mercas[merca][1]
             i += 1
         h = h.sort_values(by=['d'])
-        return h.iloc[0]
+        return h
 
 
 class Aestrella:
@@ -185,7 +185,8 @@ if __name__ == "__main__":
     m_hechas = []
     for i in range(len(m.mercas.keys())):
         #Seleccionamos la primera mercancia
-        sel = m.selecion_orden(m_hechas)
+        h = m.selecion_orden(m_hechas)
+        sel = h.iloc[0]
         print("Comienzo A* con mercancia {}. Origen robot: {}, destino{}".format(\
             sel['m'], m.robot, m.mercas[sel['m']][1]))
         a = Aestrella(m.robot, m.mercas[sel['m']][0], sel['m'], cargado = False)
