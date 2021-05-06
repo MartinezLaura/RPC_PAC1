@@ -211,13 +211,13 @@ if __name__ == "__main__":
         #Seleccionamos la primera mercancia con la mejor heuristica
         sel = h.iloc[0]
         print("Comienzo A* con mercancia {}. Origen robot: {}, destino{}".format(\
-            sel['m'], m.robot, m.mercas[sel['m']][1]))
+            sel['Mercancia'], m.robot, m.mercas[sel['Mercancia']][1]))
         #generacion de objeto y ejecucion del a*
-        a = Aestrella(m.robot, m.mercas[sel['m']][0], sel['m'], cargado = False)
+        a = Aestrella(m.robot, m.mercas[sel['Mercancia']][0], sel['Mercancia'], cargado = False)
         result = a.aestrella(m)
         # Se captura la ultima posicion del robot y se reace el algoritmo per hacia el destino de la mercancia
         m.robot = result[0][0].pos
-        a = Aestrella(m.robot, m.mercas[sel['m']][1], sel['m'], cargado = True)
+        a = Aestrella(m.robot, m.mercas[sel['Mercancia']][1], sel['Mercancia'], cargado = True)
         result = a.aestrella(m)
         
         #Comprobacion de si la siguiente mercancia se va a buscar desde la ultima posicion o desde la inicial del robot
