@@ -188,6 +188,7 @@ class Aestrella:
 
 
 if __name__ == "__main__":
+    #Flag creada pos is se quiere reiniciar la posicion del robot (2,2) despues de dejar la mercancia
     restart_robot = False
     #generamos el mapa y guardamos las posiciones del robot, pared y mercancias
     m = Mapa()
@@ -198,21 +199,25 @@ if __name__ == "__main__":
     #controlador de mercancias finalizadas
     m_hechas = []
     for i in range(len(m.mercas.keys())):
-        #Seleccionamos la primera mercancia
         h = m.selecion_orden(m_hechas)
+        #Seleccionamos la primera mercancia con la mejor heuristica
         sel = h.iloc[0]
         print("Comienzo A* con mercancia {}. Origen robot: {}, destino{}".format(\
             sel['m'], m.robot, m.mercas[sel['m']][1]))
+        #generacion de objeto y ejecucion del a*
         a = Aestrella(m.robot, m.mercas[sel['m']][0], sel['m'], cargado = False)
         result = a.aestrella(m)
-
+        # Se captura la ultima posicion del robot y se reace el algoritmo per hacia el destino de la mercancia
         m.robot = result[0][0].pos
         a = Aestrella(m.robot, m.mercas[sel['m']][1], sel['m'], cargado = True)
         result = a.aestrella(m)
+        
+        #Comprobacion de si la siguiente mercancia se va a buscar desde la ultima posicion o desde la inicial del robot
         if restart_robot:
             m.robot = m.loc_robot()
         else:
             m.robot = result[0][0].pos
+        #controlador de mercancias finalizadas
         m_hechas.append(sel['m'])
         print("*********************************************************")
 
