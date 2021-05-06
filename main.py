@@ -250,9 +250,9 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description='A* algoritmo')
-    parser.add_argument('--printListas', metavar=Bool', required=True,
+    parser.add_argument('--printListas', metavar=Bool', required=True,\
                         help='Boolpara indicar si quieres imprimir las listas abiertas y cerradas')
-    parser.add_argument('--restartRobot', metavar=Bool, required=False, default = False,
+    parser.add_argument('--restartRobot', metavar=Bool, required=False, default = False, \
                         help='Si quieres reiniciar la posicion del robot a (2,2) para la siguiente \
                         mercancia o continuar desde la posicion anterior')
     args = parser.parse_args()
