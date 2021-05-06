@@ -113,7 +113,7 @@ class Aestrella:
 
         def __str__(self):
             """Metodo implementado para retornar de manera legible los Nodos"""
-            return "pos: {}, ances: {}, g:{}, h:{}, f{}".format(self.pos, self. ances, self.g,\
+            return "pos: {}, ances: {}, g:{}, h:{}, f{}\n".format(self.pos, self. ances, self.g,\
                                                        self.h, self.f)
 
     def __init__(self, ini: tuple = tuple, fin: tuple = tuple, merc: str = str, cargado: bool = bool):
@@ -210,8 +210,12 @@ if __name__ == "__main__":
         h = m.selecion_orden(m_hechas)
         #Seleccionamos la primera mercancia con la mejor heuristica
         sel = h.iloc[0]
+        
+        print("*********************************************************")
         print("Comienzo A* con mercancia {}. Origen robot: {}, destino{}".format(\
             sel['Mercancia'], m.robot, m.mercas[sel['Mercancia']][1]))
+        print("*********************************************************")
+        
         #generacion de objeto y ejecucion del a*
         a = Aestrella(m.robot, m.mercas[sel['Mercancia']][0], sel['Mercancia'], cargado = False)
         result = a.aestrella(m)
@@ -227,6 +231,4 @@ if __name__ == "__main__":
             m.robot = result[0][0].pos
         #controlador de mercancias finalizadas
         m_hechas.append(sel['Mercancia'])
-        print("*********************************************************")
-
-
+       
