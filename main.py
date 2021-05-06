@@ -69,7 +69,7 @@ class Mapa:
             h.loc[i, 'Posicion inicial'] = self.robot
             h.loc[i, 'Posicion fin'] = self.mercas[merca][1]
             i += 1
-        h = h.sort_values(by=['d'])
+        h = h.sort_values(by=['heuristica'])
         return h
 
 
