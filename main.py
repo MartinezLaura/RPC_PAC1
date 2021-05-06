@@ -2,10 +2,11 @@ import numpy as np
 import pandas as pd
 
 class Mapa:
-    """Clase mapa  donde se almacenan las caracteristicas basicas del mapa
+        """Clase mapa  donde se almacenan las caracteristicas basicas del mapa
+        an/alt: ancho y alto del mapa
         pared: es una lista de tuplas con las posiciones donde se ubica pared
         mapa: descripcion del mapa 
-        mercancias: un diccionario donde key en la mercancia y value una lista de tulas con posicion inicial y objectivo
+        mercas: un diccionario donde key en la mercancia y value una lista de tuplas con posicion inicial y objectivo
         robot: tupla con la posicion del robot
         """
     def __init__(self, mapa = np.matrix([['M1', '#', 1, 'M3'], [1, '#', 1, 1], ['M2', 1, 'R', 1], [1, 1, 1, 1]])):
@@ -25,9 +26,18 @@ class Mapa:
         return (aux[0][0],aux[1][0])
     
     def es_obstac(self, pos, merc, cargado):
+        """Funcion que comprueba dada una posicion si esta en un obstaculo o no
+        pos: tupla, posicion a comprobar
+        merc: str, la mercancia que estamos buscando/recogiendo
+        cargado: Bool si True el robot carga mercancia si False no
+        retorna Bool indicando si la posicion es o no obstaculo
+        """
+        #comprueba pared
         aux1 = any([True if tuple(i) == pos else False for i in self.pared])
+        
         if not cargado:
             return (aux1 == True)
+        #Si el robot va cargado, comprueva mercancias como obstaculos
         elif cargado:
             mercs = [key for key in self.mercas if merc not in key]
             aux2 = [m for m in mercs if pos == self.mercas[m][0]]
@@ -45,6 +55,10 @@ class Mapa:
         return [(x, y + 1), (x, y - 1), (x + 1, y), (x - 1, y)]
     
     def dentromapa(self, pos):
+        """Se comprueva si la posicion esta dentro de los limites del mapa
+        pos: tupla, posicion a comprobar
+        retorna Bool indicando si esta dentro o fuera de los limites
+        """
         return (pos[0] >= 0) and (pos[0] < self.alt) and (pos[1] >= 0) and (pos[1] < self.an)
 
     def selecion_orden(self, hechas):
