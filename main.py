@@ -226,7 +226,7 @@ if __name__ == "__main__":
         else:
             m.robot = result[0][0].pos
         #controlador de mercancias finalizadas
-        m_hechas.append(sel['m'])
+        m_hechas.append(sel['Mercancia'])
         print("*********************************************************")
 
 
