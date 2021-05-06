@@ -134,7 +134,7 @@ class Aestrella:
 
         def __str__(self):
             """Metodo implementado para retornar de manera legible los Nodos"""
-            return "pos: {}, ances: {}, g:{}, h:{}, f{}".format(self.pos, self. ances, self.g,\
+            return "pos: {}, ances: {}, g:{}, h:{}, f{} \n".format(self.pos, self. ances, self.g,\
                                                        self.h, self.f)
 
     def __init__(self, ini: tuple = tuple, fin: tuple = tuple, merc: str = str, cargado: bool = bool):
@@ -240,7 +240,10 @@ class Aestrella:
         if plistas == 1:
             #Impresion de lista abierta y cerrada
             print('Lista cerrada:')
-            print([str(n)+"\n" for n in self.l_cer])
+            for n in self.l_cer:
+                print(str(n) + "\n")
+                
+            print([str(n) + "\n" for n in self.l_cer])
             print('Lista abierta:')
             print([str(n)+"\n" for n in self.l_ab])
 
