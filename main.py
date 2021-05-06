@@ -55,19 +55,19 @@ class Mapa:
         retorna: dataaframe actualizado"""
         i = 0
         h = pd.DataFrame(index=np.arange(1), columns=['m', 'd', 'pi', 'pf'])
-        iter = m.mercas.keys() - set(hechas)
+        iter = self.mercas.keys() - set(hechas)
         for merca in iter:
-            a = Aestrella(m.robot, m.mercas[merca][0], merca)
-            dest = a.Nodo(m.mercas[merca][1], None)
+            a = Aestrella(self.robot, self.mercas[merca][0], merca)
+            dest = a.Nodo(self.mercas[merca][1], None)
             d1 = a.manhatan(dest)
-            a = Aestrella(m.robot, m.mercas[merca][0], merca)
-            dest = a.Nodo(m.robot, None)
+            a = Aestrella(self.robot, self.mercas[merca][0], merca)
+            dest = a.Nodo(self.robot, None)
             d2 = a.manhatan(dest)
             c = d1 + d2
             h.loc[i, 'm'] = merca
             h.loc[i, 'd'] = c
-            h.loc[i, 'pi'] = m.robot
-            h.loc[i, 'pf'] = m.mercas[merca][1]
+            h.loc[i, 'pi'] = self.robot
+            h.loc[i, 'pf'] = self.mercas[merca][1]
             i += 1
         h = h.sort_values(by=['d'])
         return h.iloc[0]
