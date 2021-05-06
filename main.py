@@ -259,7 +259,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     #Flag creada pos is se quiere reiniciar la posicion del robot (2,2) despues de dejar la mercancia
-    restart_robot = arg.restartRobot
+    restart_robot = args.restartRobot
     #Imprimir o no las listas abiertas y cerradas
     plistas = args.printListas
     
