@@ -240,7 +240,7 @@ class Aestrella:
         if plistas == 1:
             #Impresion de lista abierta y cerrada
             print('Lista cerrada:')
-            print( ''.join("\n{0}".format(n) for n in self.l_cer)
+            print( ''.join("\n{0}".format(n) for n in self.l_cer))
             for n in self.l_cer:
                 print(str(n))
             print('Lista abierta:')
