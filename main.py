@@ -240,9 +240,9 @@ class Aestrella:
         if plistas == 1:
             #Impresion de lista abierta y cerrada
             print('Lista cerrada:')
-            print([str(n) for n in self.l_cer], end = '\n')
+            print([str(n)'\n' for n in self.l_cer])
             print('Lista abierta:')
-            print([str(n) for n in self.l_ab], end = '\n')
+            print([str(n)'\n' for n in self.l_ab])
 
         return result
 
